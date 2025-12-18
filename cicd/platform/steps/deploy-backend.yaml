@@ -1,0 +1,17 @@
+parameters:
+  - name: bicepFilePath
+    type: string
+  - name: resourceGroupName
+    type: string
+  - name: deploymentName
+    type: string
+
+
+steps:
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'dlab - Placements'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az deployment sub create --name '$(deploymentName)' --template-file '$(bicepFilePath)'
