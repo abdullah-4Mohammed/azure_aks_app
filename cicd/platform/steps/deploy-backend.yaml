@@ -10,7 +10,7 @@ parameters:
 steps:
 - task: AzureCLI@2
   inputs:
-    azureSubscription: 'dlab - Placements'
+    azureSubscription: 'dlab - dia''
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
