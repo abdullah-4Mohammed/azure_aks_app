@@ -67,13 +67,13 @@ steps:
       backendAzureRmKey: ${{ parameters.backendAzureRmKey }}
       allowTelemetryCollection: true
 
-  - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
-    displayName: Terraform Refresh
-    inputs:
-      command: 'refresh'
-      workingDirectory: ${{ parameters.workingDirectory }}
-      environmentServiceName: ${{ parameters.backendServiceArmConnection }}
-      allowTelemetryCollection: true
+  # - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
+  #   displayName: Terraform Refresh
+  #   inputs:
+  #     command: 'refresh'
+  #     workingDirectory: ${{ parameters.workingDirectory }}
+  #     environmentServiceName: ${{ parameters.backendServiceArmConnection }}
+  #     allowTelemetryCollection: true
   
   - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
     displayName: Terraform Plan
