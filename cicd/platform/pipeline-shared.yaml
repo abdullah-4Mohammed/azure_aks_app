@@ -5,8 +5,10 @@ trigger:
   #     - main
   paths:
     include:
-      - 'cicd-2/platform/**'
-      - 'infra-2/**'
+      - 'cicd/platform/steps/deploy-backend.yaml'
+      - 'cicd/platform/pipeline-shared.yaml'
+      - "deploy/infrastructure/backend-init"
+      
             
 pool:
   vmImage: 'ubuntu-latest'
