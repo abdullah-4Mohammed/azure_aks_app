@@ -15,7 +15,8 @@ pool: Linux Pool
 parameters:
 - name: environments
   type: object
-  default: ['dev' ,'prod']
+  # default: ['dev' ,'prod']
+  default: ['dev']
 
 stages:
 - ${{ each env in parameters.environments }}:
