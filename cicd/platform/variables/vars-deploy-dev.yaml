@@ -7,7 +7,7 @@ variables:
   #location: "uksouth" no qouta available for app svc on free accounts
   cluster_name: "$(service_name)-$(location_shortName)-aks"
   
-  kubernetes_version: "1.26.6"
+  kubernetes_version: "1.34.1" # "1.26.6" not supported on euw
   system_node_count: 2
   acr_name: "diadevacr"
   fileshare_name: "dev-fileshare"
