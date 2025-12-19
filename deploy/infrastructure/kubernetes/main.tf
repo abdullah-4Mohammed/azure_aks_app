@@ -21,7 +21,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   default_node_pool {
     name                = "system"
     node_count          = var.system_node_count
-    vm_size             = "Standard_DS2_v2"
+    vm_size             = "Standard_B2s_v2" # "Standard_DS2_v2" not supported on free account
     type                = "VirtualMachineScaleSets"
     # zones  = [1, 2, 3] #not supported in the free tier weu region
     zones  = []
