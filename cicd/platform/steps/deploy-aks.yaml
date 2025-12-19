@@ -47,7 +47,7 @@ steps:
   - bash: |
       cat ${{ parameters.workingDirectory }}/*.tfvars
     displayName: 'Cat Processed Parameters'
-
+  #install a tf on the agent. always pin a specific version of tf and never leave it flexible.
   - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
     displayName: 'Install Terraform'
     inputs:

@@ -23,7 +23,8 @@ resource "azurerm_kubernetes_cluster" "aks" {
     node_count          = var.system_node_count
     vm_size             = "Standard_DS2_v2"
     type                = "VirtualMachineScaleSets"
-    zones  = [1, 2, 3]
+    # zones  = [1, 2, 3] #not supported in the free tier weu region
+    zones  = []
     enable_auto_scaling = false
   }
 
