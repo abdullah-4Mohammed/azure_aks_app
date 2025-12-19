@@ -10,8 +10,11 @@ trigger:
       #temperory extra
       - 'deploy/**'
 
-pool: Linux Pool
-
+# pool: Linux Pool
+pool: 
+  vmImage: 'ubuntu-latest'
+resources:
+- repo: self
 parameters:
 - name: environments
   type: object
