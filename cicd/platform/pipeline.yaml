@@ -24,13 +24,37 @@ stages:
     jobs:
     - deployment: 'ApprovalCheck'
       environment: 'portal-infrastructure-${{ env }}'
-    # - job: Deploy_AKS
-    #   displayName: Build AKS Cluster
-    #   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))  
+    - job: Deploy_AKS
+      displayName: Build AKS Cluster
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))  
+      variables:
+        - template: variables/vars-deploy-${{ env }}.yaml
+      steps:
+        - template: steps/deploy-aks.yaml
+          parameters:
+            environment: ${{ variables.environment }}
+            location: ${{ variables.location }}
+            resourceGroupName: ${{ variables.resource_group_name }}
+            clusterName: ${{ variables.cluster_name }}
+            kubernetesVersion: ${{ variables.kubernetes_version }}
+            systemNodeCount: ${{ variables.system_node_count }}
+            acrName: ${{ variables.acr_name }}
+            workingDirectory: ${{ variables.workingDirectory }}
+            backendType: ${{ variables.backendType }}
+            backendServiceArmConnection: ${{ variables.backendServiceArmConnection }}
+            backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName }}
+            backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName }}
+            backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName }}
+            backendAzureRmKey: ${{ variables.backendAzureRmKey }}
+
+    # - job: Deploy_NGINX_Controller
+    #   displayName: Deploy NGINX Controller
+    #   #dependsOn: Deploy_AKS
+    #   #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
     #   variables:
     #     - template: variables/vars-deploy-${{ env }}.yaml
     #   steps:
-    #     - template: steps/deploy-aks.yaml
+    #     - template: steps/deploy-nginx-controller.yaml
     #       parameters:
     #         environment: ${{ variables.environment }}
     #         location: ${{ variables.location }}
@@ -47,55 +71,31 @@ stages:
     #         backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName }}
     #         backendAzureRmKey: ${{ variables.backendAzureRmKey }}
 
-    - job: Deploy_NGINX_Controller
-      displayName: Deploy NGINX Controller
-      #dependsOn: Deploy_AKS
-      #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
-      variables:
-        - template: variables/vars-deploy-${{ env }}.yaml
-      steps:
-        - template: steps/deploy-nginx-controller.yaml
-          parameters:
-            environment: ${{ variables.environment }}
-            location: ${{ variables.location }}
-            resourceGroupName: ${{ variables.resource_group_name }}
-            clusterName: ${{ variables.cluster_name }}
-            kubernetesVersion: ${{ variables.kubernetes_version }}
-            systemNodeCount: ${{ variables.system_node_count }}
-            acrName: ${{ variables.acr_name }}
-            workingDirectory: ${{ variables.workingDirectory }}
-            backendType: ${{ variables.backendType }}
-            backendServiceArmConnection: ${{ variables.backendServiceArmConnection }}
-            backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName }}
-            backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName }}
-            backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName }}
-            backendAzureRmKey: ${{ variables.backendAzureRmKey }}
-
       #  Deploy_Cert_Manager
         # - template: steps/deploy-cert-manager.yaml
 
       # deploy temp extra
-    - job: Deploy_Temp_Extra
-      displayName: Deploy Extra Services
-      #dependsOn: Deploy_AKS
-      #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
-      variables:
-        - template: variables/vars-deploy-${{ env }}.yaml
-      steps:
-        - template: steps/deploy-temp-extra.yaml
-          parameters:
-            environment: ${{ variables.environment }}
-            location: ${{ variables.location }}
-            resourceGroupName: ${{ variables.resource_group_name }}
-            clusterName: ${{ variables.cluster_name }}
-            kubernetesVersion: ${{ variables.kubernetes_version }}
-            systemNodeCount: ${{ variables.system_node_count }}
-            acrName: ${{ variables.acr_name }}
-            workingDirectory: ${{ variables.workingDirectory }}
-            backendType: ${{ variables.backendType }}
-            backendServiceArmConnection: ${{ variables.backendServiceArmConnection }}
-            backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName }}
-            backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName }}
-            backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName }}
-            backendAzureRmKey: ${{ variables.backendAzureRmKey }}
+    # - job: Deploy_Temp_Extra
+    #   displayName: Deploy Extra Services
+    #   #dependsOn: Deploy_AKS
+    #   #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    #   variables:
+    #     - template: variables/vars-deploy-${{ env }}.yaml
+    #   steps:
+    #     - template: steps/deploy-temp-extra.yaml
+    #       parameters:
+    #         environment: ${{ variables.environment }}
+    #         location: ${{ variables.location }}
+    #         resourceGroupName: ${{ variables.resource_group_name }}
+    #         clusterName: ${{ variables.cluster_name }}
+    #         kubernetesVersion: ${{ variables.kubernetes_version }}
+    #         systemNodeCount: ${{ variables.system_node_count }}
+    #         acrName: ${{ variables.acr_name }}
+    #         workingDirectory: ${{ variables.workingDirectory }}
+    #         backendType: ${{ variables.backendType }}
+    #         backendServiceArmConnection: ${{ variables.backendServiceArmConnection }}
+    #         backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName }}
+    #         backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName }}
+    #         backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName }}
+    #         backendAzureRmKey: ${{ variables.backendAzureRmKey }}
 
