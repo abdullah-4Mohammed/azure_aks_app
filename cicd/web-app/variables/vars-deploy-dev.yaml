@@ -1,0 +1,27 @@
+variables:
+  environment: "dev"
+  location: "westeurope"
+  location_shortName: "weu"
+  service_name: "dlab-dia"
+  resource_group_name: "$(service_name)-$(location_shortName)-rg"
+  #location: "uksouth" no qouta available for app svc on free accounts
+  cluster_name: "$(service_name)-$(location_shortName)-aks"
+  
+  kubernetes_version: "1.34.1" # "1.26.6" not supported on euw
+  system_node_count: 2
+  acr_name: "diadevacr"
+  fileshare_name: "dev-fileshare"
+  workingDirectory: '$(System.DefaultWorkingDirectory)/deploy/infrastructure/kubernetes'
+  backendAzureRmResourceGroupName: "$(service_name)-shared-$(location_shortName)"
+  kind: "Linux"
+  backendType: 'azurerm'
+  backendServiceArmConnection: 'AzToAz_AzRm'
+  backendAzureRmStorageAccountName: "diatfstatestorage"
+  backendAzureRmContainerName: 'platformstate-shared'
+  backendAzureRmContainerNameEnvironment: 'dev-platform'
+  backendAzureRmContainerNameCommon: 'common-platform'
+  backendAzureRmKey: '$(environment)-platform.tfstate'
+  bicepFilePath: '$(System.DefaultWorkingDirectory)/deploy/infrastructure/backend-init/backend-deployment.bicep'
+
+
+  

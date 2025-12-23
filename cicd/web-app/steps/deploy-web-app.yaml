@@ -1,0 +1,14 @@
+# deploy web-app to app service
+steps:
+- task: AzureRmWebAppDeployment@4
+  displayName: 'Deploy Web App to Azure App Service'
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: "AzToAz_AzRm"
+    appType: 'webAppContainer'
+    WebAppName: 'dlab-dia-uks-dev-app'
+    deployToSlotOrASE: true
+    ResourceGroupName: 'dlab-dia-dev-weu-rg'
+    DockerNamespace: 'diadevacr.azurecr.io'
+    DockerRepository: 'web-app'
+    DockerImageTag: 'latest'
