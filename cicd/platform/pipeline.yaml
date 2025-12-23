@@ -9,7 +9,7 @@ trigger:
       - 'cicd/platform/**'
       #temperory extra
       - 'deploy/**'
-
+ 
 # pool: Linux Pool
 pool: 
   vmImage: 'ubuntu-latest'
